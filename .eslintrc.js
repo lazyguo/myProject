@@ -18,6 +18,9 @@ module.exports = {
     "vue/multi-word-component-names": "off",
     "prettier/prettier": "off",
     "no-unused-vars":"off",
-    "@typescript-eslint/no-unused-vars": "off"
+    "@typescript-eslint/no-unused-vars": "off",
+    '@typescript-eslint/no-explicit-any': "off",
+    "prefer-const":'off',
+    '@typescript-eslint/no-inferrable-types': 'off'
   },
 };

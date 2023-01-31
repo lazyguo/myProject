@@ -13,7 +13,7 @@
           <el-input v-model="form.username" />
         </el-form-item>
         <el-form-item label="密码:">
-          <el-input v-model="form.password" />
+          <el-input v-model="form.password" type="password" />
         </el-form-item>
       </el-form>
       <el-button @click="login" class="login-start">登录</el-button>
@@ -25,10 +25,13 @@
   </div>
 </template>
 <script lang="ts">
-import { reactive, ref } from 'vue'
+import { reactive, ref, computed } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
 import { ElMessage } from 'element-plus'
-import { loginApi } from '../api/login'
+import { loginApi } from '@/api/login'
+import { setCookie } from '@/utils/util.cookie'
+import store from '@/store/index'
+import { mapActions } from 'vuex'
 export default {
   name: 'AssignModal'
 }
@@ -47,6 +50,9 @@ const login = () => {
   loginApi(form).then(res => {
     console.log('res', res)
     if (res.status == 1) {
+      let token = 'Bearer-' + res.data
+      setCookie('token', token)
+      setCookie('Authorization', token)
       ElMessage({
         message: res.msg,
         type: 'error'
@@ -107,8 +113,8 @@ const login = () => {
     margin: 0 auto;
     color: #deccbe;
     span {
-        margin: 0 15px;
-        cursor: pointer;
+      margin: 0 15px;
+      cursor: pointer;
     }
   }
 }
