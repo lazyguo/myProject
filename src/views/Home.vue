@@ -26,6 +26,7 @@
 </template>
 <script lang="ts">
 import { reactive, ref, computed } from 'vue'
+import { useRouter  } from "vue-router"
 import type { FormInstance, FormRules } from 'element-plus'
 import { ElMessage } from 'element-plus'
 import { loginApi } from '@/api/login'
@@ -37,6 +38,7 @@ export default {
 }
 </script>
 <script lang="ts" setup>
+const router = useRouter()
 interface formItem {
   username: string
   password: string
@@ -50,14 +52,15 @@ const login = () => {
   loginApi(form).then(res => {
     console.log('res', res)
     if (res.status == 1) {
-      let token = 'Bearer-' + res.data
-      setCookie('token', token)
-      setCookie('Authorization', token)
       ElMessage({
         message: res.msg,
         type: 'error'
       })
     } else {
+      let token = 'Bearer-' + res.data
+      setCookie('token', token)
+      setCookie('Authorization', token)
+      router.push('/userHome')
       ElMessage({
         message: res.msg,
         type: 'success'

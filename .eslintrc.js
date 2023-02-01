@@ -21,6 +21,7 @@ module.exports = {
     "@typescript-eslint/no-unused-vars": "off",
     '@typescript-eslint/no-explicit-any': "off",
     "prefer-const":'off',
-    '@typescript-eslint/no-inferrable-types': 'off'
+    '@typescript-eslint/no-inferrable-types': 'off',
+    '@typescript-eslint/no-this-alias':'off'
   },
 };
