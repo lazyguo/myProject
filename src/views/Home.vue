@@ -19,7 +19,7 @@
       <el-button @click="login" class="login-start">登录</el-button>
       <div class="login-other">
         <span>忘记密码</span>
-        <span>注册账户</span>
+        <span @click="register">注册账户</span>
       </div>
     </div>
   </div>
@@ -31,8 +31,6 @@ import type { FormInstance, FormRules } from 'element-plus'
 import { ElMessage } from 'element-plus'
 import { loginApi } from '@/api/login'
 import { setCookie } from '@/utils/util.cookie'
-import store from '@/store/index'
-import { mapActions } from 'vuex'
 export default {
   name: 'AssignModal'
 }
@@ -67,6 +65,9 @@ const login = () => {
       })
     }
   })
+}
+const register = ()=>{
+  router.push('/registerUser')
 }
 </script>
 

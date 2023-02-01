@@ -14,6 +14,11 @@ const routes: Array<RouteRecordRaw> = [
     component: import("@/views/Home.vue"),
   },
   {
+    path: "/registerUser",
+    name: "registerUser",
+    component: () => import('@/views/partUser/registerUser.vue'),
+  },
+  {
     path: "/userHome",
     name: "userHome",
     component: () => import('@/views/partUser/userHome.vue'),
@@ -28,7 +33,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   // 进度条
   Nprogress.start()
-  if (to.name !== 'login') {
+  if (to.name !== 'login' && to.name !== 'registerUser') {
     let token = getCookie('token')
     if (token) {
       next()
