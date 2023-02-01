@@ -18,8 +18,8 @@
       </el-form>
       <el-button @click="login" class="login-start">登录</el-button>
       <div class="login-other">
-        <span>忘记密码</span>
-        <span @click="register">注册账户</span>
+        <span class="textSelect">忘记密码</span>
+        <span class="textSelect" @click="register">注册账户</span>
       </div>
     </div>
   </div>
@@ -43,8 +43,8 @@ interface formItem {
 }
 let ruleFormRef = ref<FormInstance>()
 let form = reactive<formItem>({
-  username: '',
-  password: ''
+  username: 'sole',
+  password: 'sole123'
 })
 const login = () => {
   loginApi(form).then(res => {
@@ -72,13 +72,14 @@ const register = ()=>{
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/css/common.scss';
 .home-contain {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
-  background: url('../assets/gy.jpeg') no-repeat;
+  background: url('@/assets/imgs/gy.jpeg') no-repeat;
 }
 .login {
   position: relative;
