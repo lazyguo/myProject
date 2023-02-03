@@ -22,7 +22,7 @@ import { reactive, ref, computed } from 'vue'
 const fileImg  = require('@/assets/imgs/ava.png')
 </script>
 <script lang="ts" setup>
-let avatarUrl: string = ref()
+// let avatarUrl: string = ref()
 </script>
 
 <style lang="scss" scoped>
