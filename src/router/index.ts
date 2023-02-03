@@ -33,8 +33,8 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   // 进度条
   Nprogress.start()
+  let token = getCookie('token')
   if (to.name !== 'login' && to.name !== 'registerUser') {
-    let token = getCookie('token')
     if (token) {
       next()
       Nprogress.done()

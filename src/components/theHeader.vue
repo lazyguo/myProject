@@ -19,7 +19,7 @@
 
 <script lang="ts">
 import { reactive, ref, computed } from 'vue'
-import fileImg from '@/assets/imgs/ava.png'
+const fileImg  = require('@/assets/imgs/ava.png')
 </script>
 <script lang="ts" setup>
 let avatarUrl: string = ref()
