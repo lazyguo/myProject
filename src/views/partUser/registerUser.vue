@@ -1,7 +1,7 @@
 <template>
   <div class="home-contain">
     <div class="home-shade">
-      <div class="register-back" @click="turnBack">返回主页</div>
+      <div class="register-back" @click="turnBack">返回登录</div>
       <div class="register-body">
         <div class="register-left">
           <img src="../../assets/imgs/bj.jpeg" />
@@ -39,11 +39,12 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive } from 'vue'
+import { ref, reactive } from 'vue'
 import { addUserApi } from '@/api/login'
 import { useRouter } from 'vue-router'
-import type { FormRules } from 'element-plus'
+import type { FormInstance, FormRules } from 'element-plus'
 import { ElMessage } from 'element-plus'
+import { validPassword, validatePassword, checkNoChinese } from '@/utils/util.validate'
 interface formItem {
   username: string
   password: string
@@ -56,24 +57,22 @@ let ruleForm = reactive<formItem>({
   email: '',
   nickname: ''
 })
-// 检验密码框
-// const validatePassword = (value: string, callback: any) => {
-//   var pwdRegex = new RegExp(/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,12}$/)
-//   if (value === '') {
-//     callback(new Error('密码不能为空'))
-//   } else if (!pwdRegex.test(value)) {
-//     callback(new Error('密码必须为6-12位字母和数字组合'))
-//   } else {
-//     callback()
-//   }
-// }
+
 const router = useRouter()
+const ruleFormRef = ref<FormInstance>()
 const rules = reactive<FormRules>({
   username: [
     { required: true, message: '用户名不得为空', trigger: 'blur' },
-    { min: 3, max: 10, message: '用户名长度为3-10', trigger: 'blur' }
+    { validator: checkNoChinese, trigger: 'blur' }
+  ],
+  nickname: [
+    { required: true, message: '昵称不得为空', trigger: 'blur' },
+    { min: 3, max: 10, message: '昵称长度为3-10', trigger: 'blur' }
+  ],
+  password: [
+    { required: true, message: '密码不能为空', trigger: 'blur' },
+    { validator: validatePassword, trigger: 'blur' }
   ]
-  // password: [{ required: true, validator: validatePassword, trigger: 'blur' }]
 })
 const addUser = () => {
   addUserApi(ruleForm).then(res => {

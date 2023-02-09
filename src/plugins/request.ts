@@ -26,6 +26,8 @@ serve.interceptors.response.use(
             let s = status
             let msgInfo = dataAxios.msg || dataAxios.message
             switch (s) {
+                case 200:
+                    break;
                 case 401:
                     console.log(msgInfo);
 
