@@ -29,7 +29,7 @@
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="addUser">确 定</el-button>
-              <el-button>取 消</el-button>
+              <el-button @click="cancelAddUser">取 消</el-button>
             </el-form-item>
           </el-form>
         </div>
@@ -59,7 +59,7 @@ let ruleForm = reactive<formItem>({
 })
 
 const router = useRouter()
-const ruleFormRef = ref<FormInstance>()
+const addUserForm = ref<FormInstance>()
 const rules = reactive<FormRules>({
   username: [
     { required: true, message: '用户名不得为空', trigger: 'blur' },
@@ -91,6 +91,9 @@ const addUser = () => {
 }
 const turnBack = () => {
   router.push('/login')
+}
+const cancelAddUser = () => {
+  addUserForm.value?.resetFields()
 }
 </script>
 
