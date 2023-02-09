@@ -10,19 +10,25 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/login",
-    name: "login",
-    component: import("@/views/Home.vue"),
+    name: "Login",
+    component: () => import('@/views/Login.vue'),
   },
   {
     path: "/registerUser",
-    name: "registerUser",
+    name: "RegisterUser",
     component: () => import('@/views/partUser/registerUser.vue'),
   },
   {
+    path: "/core",
+    name: "Core",
+    component: () => import('@/views/Core.vue')
+  },
+  {
     path: "/userHome",
-    name: "userHome",
+    name: "UserHome",
     component: () => import('@/views/partUser/userHome.vue'),
   },
+
 ];
 
 const router = createRouter({

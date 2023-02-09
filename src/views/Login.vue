@@ -19,7 +19,7 @@
       <el-button @click="login" class="login-start">登录</el-button>
       <div class="login-other">
         <span class="textSelect">忘记密码</span>
-        <span class="textSelect" @click="register">注册账户</span>
+        <span class="textSelect" @click="router.push('/registerUser')">注册账户</span>
       </div>
     </div>
   </div>
@@ -65,9 +65,6 @@ const login = () => {
       })
     }
   })
-}
-const register = ()=>{
-  router.push('/registerUser')
 }
 </script>
 

@@ -29,7 +29,7 @@
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="addUser">确 定</el-button>
-              <el-button>取 消</el-button>
+              <el-button @click="turnBack">取 消</el-button>
             </el-form-item>
           </el-form>
         </div>
