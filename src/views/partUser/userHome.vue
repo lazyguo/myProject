@@ -22,12 +22,12 @@
             <el-table :data="tableData" style="width: 100%">
               <el-table-column type="index" />
               <el-table-column prop="username" label="用户名" />
-              <el-table-column prop="nickName" label="昵称" />
+              <el-table-column prop="nickname" label="昵称" />
               <el-table-column prop="email" label="邮箱" />
               <el-table-column prop="power" label="等级" />
               <el-table-column prop="status" label="状态" />
               <el-table-column>
-                <template v-slot="scope">
+                <template>
                   <el-button type="waring">修改</el-button>
                   <el-button type="danger">删除</el-button>
                 </template>
@@ -44,6 +44,21 @@
 import theHeader from '@/components/theHeader.vue'
 import theAside from '@/components/theAside.vue'
 import { ArrowRight } from '@element-plus/icons-vue'
+import { reactive } from 'vue-demi'
+interface formItem {
+  username: string
+  nickname: string
+  email: string
+  power: string
+  status: string
+}
+let tableData = reactive<formItem>({
+  username: '',
+  nickname: '',
+  email: '',
+  power: '',
+  status: ''
+})
 </script>
 
 <style lang="scss" scoped>
