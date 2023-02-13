@@ -7,7 +7,8 @@
           <el-avatar :size="50" :src="fileImg == '' ? demoImg : fileImg" />
         </div>
         <template #dropdown>
-          <el-dropdown-menu>
+          <el-dropdown-menu style="text-align:center">
+            <div class="menu_user"></div>
             <el-dropdown-item>个人中心</el-dropdown-item>
             <el-dropdown-item @click="logout">登出</el-dropdown-item>
           </el-dropdown-menu>
@@ -29,7 +30,7 @@ const fileImg = ref('')
 const demoImg = require('@/assets/imgs/ava.png')
 const router = useRouter()
 // 监听pinia存储数据修改
-watch(() => store.userInfo,(newVal) => {
+watch(() => store.userInfo.imgUrl,(newVal) => {
   fileImg.value = newVal
 },{
   deep:true,
@@ -66,5 +67,13 @@ const logout = () => {
   align-items: center;
   width: 60px;
   height: 80px;
+}
+.menu_user {
+  height: 30px;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+::v-deep .el-dropdown-menu {
+  background-color: rgba(0,0,0,.5);
 }
 </style>
