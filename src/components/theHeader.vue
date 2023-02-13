@@ -75,4 +75,12 @@ const logout = () => {
   width: 60px;
   height: 80px;
 }
+.menu_user {
+  height: 30px;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+::v-deep .el-dropdown-menu {
+  background-color: rgba(0,0,0,.5);
+}
 </style>

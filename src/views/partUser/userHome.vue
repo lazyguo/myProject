@@ -224,14 +224,14 @@ const rules = reactive<FormRules>({
   ]
   // email: [{ validator: validateEmail, trigger: 'blur' }]
 })
-const clear = (data) => {
-  const keys = Object.keys(data);
-  let obj: { [name: string]: string } = {};
-  keys.forEach((item) => {
-    obj[item] = "";
-  });
-  Object.assign(data, obj);
-};
+const clear = data => {
+  const keys = Object.keys(data)
+  let obj: { [name: string]: string } = {}
+  keys.forEach(item => {
+    obj[item] = ''
+  })
+  Object.assign(data, obj)
+}
 // 修改用户信息
 const editUserForm = row => {
   clear(userForm)
@@ -242,13 +242,12 @@ const editUserForm = row => {
 let deleteUrl = ref<string>('')
 // 提交修改
 const submitUserForm = () => {
-  console.log('userForm.img-----------', deleteUrl)
   userDialog.value = false
   editUserApi(userForm).then(res => {
     if (res.status == 0) {
       if (deleteUrl.value) {
-        removeImgApi(deleteUrl).then(res => {
-          console.log('res', res)
+        removeImgApi(deleteUrl.value).then(res => {
+          console.log('成功')
         })
       }
       ElMessage({
@@ -257,9 +256,8 @@ const submitUserForm = () => {
       })
       let info = JSON.parse(localStorage.getItem('userInfo'))
       let userName = info.userInfo.username
-      if(userName == userForm.username) {
+      if (userName == userForm.username) {
         store.getInfo(userForm.username)
-        location.reload()
       }
       getUserList()
     } else {
@@ -280,7 +278,7 @@ const handleCurrentChange = (val: number) => {
   getUserList(query)
 }
 const beforeAvatarUpload: UploadProps['beforeUpload'] = rawFile => {
-  deleteUrl = userForm.imgUrl
+  deleteUrl.value = userForm.imgUrl
 }
 // 头像上传成功回调
 const handleAvatarSuccess: UploadProps['onSuccess'] = (response, uploadFile) => {
@@ -292,7 +290,19 @@ const switchBeforeChange = row => {
     setTimeout(() => {
       row.status = row.status == 0 ? 1 : 0
       userForm = Object.assign(toRaw(userForm), toRaw(row))
-      submitUserForm()
+      editUserApi(userForm).then(res => {
+        if (res.status == 0) {
+          ElMessage({
+            message: '更新用户信息成功',
+            type: 'success'
+          })
+        } else {
+          ElMessage({
+            message: '更新用户信息失败',
+            type: 'error'
+          })
+        }
+      })
       return resolve(false)
     }, 50)
   })
