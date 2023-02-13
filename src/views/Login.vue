@@ -47,10 +47,11 @@ let form = reactive<formItem>({
   password: 'sole123'
 })
 const login = () => {
+  console.log(123);
+  
   store.login(form).then(res => {
-    if (res == 'success') {
-      let userInfo: any = localStorage.getItem('userInfo')
-      let power = JSON.parse(userInfo).userInfo.power
+    if (res.status == 'success') {
+      let power = res.power
       if (power == 'admin' || power == 'super') {
         router.push('/core')
       } else {

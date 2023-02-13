@@ -29,7 +29,7 @@ const fileImg = ref('')
 const demoImg = require('@/assets/imgs/ava.png')
 const router = useRouter()
 // 监听pinia存储数据修改
-watch(() => store.userInfo.imgUrl,(newVal) => {
+watch(() => store.userInfo,(newVal) => {
   fileImg.value = newVal
 },{
   deep:true,

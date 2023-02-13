@@ -224,8 +224,17 @@ const rules = reactive<FormRules>({
   ]
   // email: [{ validator: validateEmail, trigger: 'blur' }]
 })
+const clear = (data) => {
+  const keys = Object.keys(data);
+  let obj: { [name: string]: string } = {};
+  keys.forEach((item) => {
+    obj[item] = "";
+  });
+  Object.assign(data, obj);
+};
 // 修改用户信息
 const editUserForm = row => {
+  clear(userForm)
   userForm = Object.assign(userForm, row)
   console.log('userForm', userForm.imgUrl)
   userDialog.value = true
@@ -237,14 +246,21 @@ const submitUserForm = () => {
   userDialog.value = false
   editUserApi(userForm).then(res => {
     if (res.status == 0) {
-      removeImgApi(deleteUrl).then(res => {
-        console.log('res', res)
-      })
+      if (deleteUrl.value) {
+        removeImgApi(deleteUrl).then(res => {
+          console.log('res', res)
+        })
+      }
       ElMessage({
         message: '更新用户信息成功',
         type: 'success'
       })
-      store.getInfo(userForm.username)
+      let info = JSON.parse(localStorage.getItem('userInfo'))
+      let userName = info.userInfo.username
+      if(userName == userForm.username) {
+        store.getInfo(userForm.username)
+        location.reload()
+      }
       getUserList()
     } else {
       ElMessage({
@@ -264,7 +280,7 @@ const handleCurrentChange = (val: number) => {
   getUserList(query)
 }
 const beforeAvatarUpload: UploadProps['beforeUpload'] = rawFile => {
-  deleteUrl= userForm.imgUrl
+  deleteUrl = userForm.imgUrl
 }
 // 头像上传成功回调
 const handleAvatarSuccess: UploadProps['onSuccess'] = (response, uploadFile) => {
