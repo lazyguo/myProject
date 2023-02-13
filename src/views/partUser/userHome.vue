@@ -70,6 +70,7 @@
               </el-table-column>
             </el-table>
           </div>
+          <!-- 分页功能 -->
           <el-pagination
             class="pageNation"
             v-model:current-page="query.pageNum"
@@ -83,6 +84,7 @@
         </el-main>
       </el-container>
     </el-container>
+    <!-- 修改添加用户信息弹框 -->
     <el-dialog v-model="userDialog" :title="optionText + '用户'" width="30%" center>
       <div>
         <el-form
@@ -120,7 +122,7 @@
               action="/api/upload/avatar"
               :show-file-list="false"
               :on-success="handleAvatarSuccess"
-              :on-preview="handlePictureCardPreview"
+              :before-upload="beforeAvatarUpload"
             >
               <img v-if="userForm.imgUrl" :src="userForm.imgUrl" class="avatar" />
               <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
@@ -139,21 +141,30 @@
 </template>
 
 <script lang="ts" setup>
+// 引入公共组件
 import theHeader from '@/components/theHeader.vue'
 import theAside from '@/components/theAside.vue'
+// 引入依赖方法
 import { ArrowRight, Plus } from '@element-plus/icons-vue'
 import { reactive, ref, nextTick, Vue, defineProps, defineExpose, toRaw } from 'vue'
-import { getUserListApi, editUserApi, removeUserApi } from '@/api/user_api'
-import { dict, dictTrans } from '@/utils/util.dict'
-import { ElMessage, ElMessageBox } from 'element-plus'
 import type { FormInstance, FormRules, UploadProps } from 'element-plus'
-import pagnation from '@/components/pagnation.vue'
+import { ElMessage, ElMessageBox } from 'element-plus'
+// 引入接口
+import { getUserListApi, editUserApi, removeUserApi, removeImgApi } from '@/api/user_api'
+// 引入公用方法
+import { dict, dictTrans } from '@/utils/util.dict'
+// 引入pinia
+import { loginStore } from '@/storePinia/index'
+// 引入公共验证规则
 import {
   validPassword,
   validatePassword,
   checkNoChinese,
   validateEmail
 } from '@/utils/util.validate'
+import { remove } from 'js-cookie'
+const store = loginStore()
+// 定义表格数据
 let userData = ref([
   {
     username: 'string',
@@ -170,6 +181,7 @@ let query = reactive({
   pageSize: 10,
   total: 0
 })
+// 获取页面列表数据
 const getUserList = params => {
   loading.value = true
   getUserListApi(params).then(res => {
@@ -181,14 +193,17 @@ const getUserList = params => {
 
 let optionText: string = ref('修改') // 弹框标题
 let userDialog: boolean = ref(false) // 控制弹框
+// 处理字典数据
 const levelDict = dict('等级').map(item => {
   return {
     label: item.optName,
     value: item.optCode
   }
 })
+// 饿了么定义
 const formSize = ref('default')
 const userFormRef = ref<FormInstance>()
+// 表单数据
 let userForm = reactive({
   username: '',
   nickname: '',
@@ -212,18 +227,24 @@ const rules = reactive<FormRules>({
 // 修改用户信息
 const editUserForm = row => {
   userForm = Object.assign(userForm, row)
-  userForm.password = ''
+  console.log('userForm', userForm.imgUrl)
   userDialog.value = true
 }
+let deleteUrl = ref<string>('')
 // 提交修改
 const submitUserForm = () => {
+  console.log('userForm.img-----------', deleteUrl)
   userDialog.value = false
   editUserApi(userForm).then(res => {
     if (res.status == 0) {
+      removeImgApi(deleteUrl).then(res => {
+        console.log('res', res)
+      })
       ElMessage({
         message: '更新用户信息成功',
         type: 'success'
       })
+      store.getInfo(userForm.username)
       getUserList()
     } else {
       ElMessage({
@@ -241,6 +262,9 @@ const handleSizeChange = (val: number) => {
 const handleCurrentChange = (val: number) => {
   query.pageNum = val
   getUserList(query)
+}
+const beforeAvatarUpload: UploadProps['beforeUpload'] = rawFile => {
+  deleteUrl= userForm.imgUrl
 }
 // 头像上传成功回调
 const handleAvatarSuccess: UploadProps['onSuccess'] = (response, uploadFile) => {

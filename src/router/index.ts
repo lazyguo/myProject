@@ -40,7 +40,7 @@ router.beforeEach((to, from, next) => {
   // 进度条
   Nprogress.start()
   let token = getCookie('token')
-  if (to.name !== 'login' && to.name !== 'registerUser') {
+  if (to.name !== 'Login' && to.name !== 'RegisterUser') {
     if (token) {
       next()
       Nprogress.done()

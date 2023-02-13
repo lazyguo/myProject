@@ -26,16 +26,16 @@
 </template>
 <script lang="ts">
 import { reactive, ref, computed } from 'vue'
-import { useRouter  } from "vue-router"
+import { useRouter } from 'vue-router'
 import type { FormInstance, FormRules } from 'element-plus'
 import { ElMessage } from 'element-plus'
-import { loginApi } from '@/api/login'
-import { setCookie } from '@/utils/util.cookie'
+import { loginStore } from '@/storePinia/index'
 export default {
   name: 'AssignModal'
 }
 </script>
 <script lang="ts" setup>
+const store = loginStore()
 const router = useRouter()
 interface formItem {
   username: string
@@ -47,22 +47,18 @@ let form = reactive<formItem>({
   password: 'sole123'
 })
 const login = () => {
-  loginApi(form).then(res => {
-    console.log('res', res)
-    if (res.status == 1) {
-      ElMessage({
-        message: res.msg,
-        type: 'error'
-      })
+  store.login(form).then(res => {
+    if (res == 'success') {
+      let userInfo: any = localStorage.getItem('userInfo')
+      let power = JSON.parse(userInfo).userInfo.power
+      if (power == 'admin' || power == 'super') {
+        router.push('/core')
+      } else {
+        router.push('/userHome')
+      }
+      ElMessage.success('欢迎回家')
     } else {
-      let token = 'Bearer-' + res.data
-      setCookie('token', token)
-      setCookie('Authorization', token)
-      router.push('/userHome')
-      ElMessage({
-        message: res.msg,
-        type: 'success'
-      })
+      ElMessage.success('登陆失败')
     }
   })
 }

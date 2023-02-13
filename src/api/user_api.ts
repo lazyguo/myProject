@@ -1,6 +1,7 @@
 import request from '../plugins/request'
 const prefix = '/api'
 
+// 获取用户列表
 interface getUserListRule {
     pageSize:number,
     pageNum:number
@@ -12,6 +13,7 @@ export function getUserListApi(params: getUserListRule) {
         params
     })
 }
+// 修改用户信息
 interface editUserRule {
     username:string,
     password?:string,
@@ -28,12 +30,23 @@ export function editUserApi(data: editUserRule) {
         data
     })
 }
+// 删除用户
 export function removeUserApi(id:number) {
     return request({
         url: `${prefix}/removeUser`,
         method: 'post',
         data: {
             id
+        }
+    })
+}
+// 更新用户头像，删除服务器不用图片
+export function removeImgApi(path:string) {
+    return request({
+        url:`${prefix}/removeImg`,
+        method:'post',
+        data:{
+            path
         }
     })
 }

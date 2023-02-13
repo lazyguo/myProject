@@ -4,12 +4,12 @@
     <div class="header_tool">
       <el-dropdown>
         <div class="avatar">
-          <el-avatar :size="50" :src="fileImg" />
+          <el-avatar :size="50" :src="fileImg == '' ? demoImg : fileImg" />
         </div>
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item>个人中心</el-dropdown-item>
-            <el-dropdown-item>登出</el-dropdown-item>
+            <el-dropdown-item @click="logout">登出</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -18,11 +18,34 @@
 </template>
 
 <script lang="ts">
-import { reactive, ref, computed } from 'vue'
-const fileImg  = require('@/assets/imgs/ava.png')
+import { reactive, ref, computed,watch } from 'vue'
+import { loginStore } from '@/storePinia/index'
+import { ElMessage } from 'element-plus'
+import { useRouter  } from "vue-router"
 </script>
 <script lang="ts" setup>
-// let avatarUrl: string = ref()
+const store = loginStore()
+const fileImg = ref('')
+const demoImg = require('@/assets/imgs/ava.png')
+const router = useRouter()
+// 监听pinia存储数据修改
+watch(() => store.userInfo.imgUrl,(newVal) => {
+  fileImg.value = newVal
+},{
+  deep:true,
+  immediate:true
+})
+// 判断该账户是否有头像，如有则使用，无则用默认
+  fileImg.value = store.userInfo.imgUrl
+
+const logout = () => {
+  store.logout().then(res => {
+    if(res == 'success') {
+      router.push('/login')
+      ElMessage.success('登出成功')
+    }
+  })
+}
 </script>
 
 <style lang="scss" scoped>

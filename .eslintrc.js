@@ -26,5 +26,6 @@ module.exports = {
     '@typescript-eslint/no-this-alias':'off',
     "@typescript-eslint/no-var-requires":'off',
     "vue/no-v-model-argument": "off",
+    "@typescript-eslint/no-non-null-assertion":"off"
   },
 };
