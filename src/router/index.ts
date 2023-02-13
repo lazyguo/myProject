@@ -28,6 +28,11 @@ const routes: Array<RouteRecordRaw> = [
     name: "UserHome",
     component: () => import('@/views/partUser/userHome.vue'),
   },
+  {
+    path: "/personalConter",
+    name: "PersonalConter",
+    component: () => import('@/views/partUser/personalConter.vue'),
+  },
 
 ];
 
