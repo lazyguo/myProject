@@ -6,7 +6,7 @@
         <div class="tabText">管理页面</div>
       </div>
       <div class="tab">
-        <div class="tabImg"></div>
+        <div class="tabImg2"></div>
         <div class="tabText">普通页面</div>
       </div>
     </div>
@@ -24,6 +24,7 @@ const router = useRouter()
   height: 100%;
   background: url('@/assets/imgs/bg.jpg') no-repeat;
   .tabList {
+    perspective: 800px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -39,12 +40,31 @@ const router = useRouter()
       height: 230px;
       background-color: rgba(255, 255, 255, 0.3);
       border-radius: 15px;
-        cursor: pointer;
-      .tabImg {
+      cursor: pointer;
+      transition: transform 0.5s;
+      &:hover {
+        transform: translate3d(0, 0, 400px);
+        transform: translateZ(80px);
+        .tabImg {
+          transform: rotateY(180deg);
+        }
+        .tabImg2 {
+          transform: rotateY(-180deg);
+        }
+      }
+      .tabImg,
+      .tabImg2 {
         width: 120px;
         height: 120px;
         border-radius: 50%;
-        background: url('@/assets/imgs/bg.png') no-repeat;
+        background: url('@/assets/imgs/bg.jpg') no-repeat;
+        transition: transform 0.5s;
+      }
+      .tabImg {
+        background-position: 31% 12%;
+      }
+      .tabImg2 {
+        background-position: 69% 8%;
       }
       .tabText {
         color: #cfb3c9;
