@@ -1,15 +1,14 @@
 <template>
   <div class="header_container">
-    <div class="header_title">你种的花，人间都开遍了</div>
+    <div class="header_title">你种的花，老娘都没收到！</div>
     <div class="header_tool">
       <el-dropdown>
         <div class="avatar">
           <el-avatar :size="50" :src="fileImg == '' ? demoImg : fileImg" />
         </div>
         <template #dropdown>
-          <el-dropdown-menu style="text-align:center">
-            <div class="menu_user"></div>
-            <el-dropdown-item>个人中心</el-dropdown-item>
+          <el-dropdown-menu>
+            <el-dropdown-item @click="personal">个人中心</el-dropdown-item>
             <el-dropdown-item @click="logout">登出</el-dropdown-item>
           </el-dropdown-menu>
         </template>
@@ -19,10 +18,10 @@
 </template>
 
 <script lang="ts">
-import { reactive, ref, computed,watch } from 'vue'
+import { reactive, ref, computed, watch } from 'vue'
 import { loginStore } from '@/storePinia/index'
 import { ElMessage } from 'element-plus'
-import { useRouter  } from "vue-router"
+import { useRouter } from 'vue-router'
 </script>
 <script lang="ts" setup>
 const store = loginStore()
@@ -30,18 +29,26 @@ const fileImg = ref('')
 const demoImg = require('@/assets/imgs/ava.png')
 const router = useRouter()
 // 监听pinia存储数据修改
-watch(() => store.userInfo.imgUrl,(newVal) => {
-  fileImg.value = newVal
-},{
-  deep:true,
-  immediate:true
-})
+watch(
+  () => store.userInfo,
+  newVal => {
+    fileImg.value = newVal
+  },
+  {
+    deep: true,
+    immediate: true
+  }
+)
 // 判断该账户是否有头像，如有则使用，无则用默认
-  fileImg.value = store.userInfo.imgUrl
+fileImg.value = store.userInfo.imgUrl
+
+const personal = () => {
+  router.push('/personalConter')
+}
 
 const logout = () => {
   store.logout().then(res => {
-    if(res == 'success') {
+    if (res == 'success') {
       router.push('/login')
       ElMessage.success('登出成功')
     }
@@ -74,6 +81,6 @@ const logout = () => {
   border-bottom: 1px solid #ccc;
 }
 ::v-deep .el-dropdown-menu {
-  background-color: rgba(0,0,0,.5);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 </style>
