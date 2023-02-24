@@ -33,6 +33,11 @@ const routes: Array<RouteRecordRaw> = [
     name: "PersonalConter",
     component: () => import('@/views/partUser/personalConter.vue'),
   },
+  {
+    path: "/bigVisu",
+    name: "bigVisu",
+    component: () => import('@/views/visu/index.vue'),
+  },
 
 ];
 

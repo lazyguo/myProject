@@ -12,8 +12,8 @@
     <el-menu-item index="2" @click="jump('core')">
       <span>未知</span>
     </el-menu-item>
-    <el-menu-item index="3" @click="router.push({name: 'Core'})">
-      <span>未知</span>
+    <el-menu-item index="3" @click="router.push({name: 'bigVisu'})">
+      <span>可视化大屏</span>
     </el-menu-item>
   </el-menu>
 </template>

@@ -73,7 +73,7 @@ const login = () => {
   align-items: center;
   width: 100%;
   height: 100%;
-  background: url('@/assets/imgs/gy.jpeg') no-repeat;
+  background: url('@/assets/imgs/cat.jpg') no-repeat;
 }
 .login {
   position: relative;
@@ -84,7 +84,7 @@ const login = () => {
   border: 2px solid #fff;
   .login-title {
     font-size: 30px;
-    color: #bdb0c2;
+    color: #fff;
     text-align: center;
     margin-top: 15px;
     user-select: none;
@@ -124,6 +124,6 @@ const login = () => {
   box-shadow: 0 0 0 1px #bdb0c2 inset;
 }
 ::v-deep .el-form-item__label {
-  color: #757890;
+  color: #fff;
 }
 </style>
