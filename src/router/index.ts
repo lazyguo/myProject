@@ -98,10 +98,17 @@ router.beforeEach((to, from, next) => {
   // }
   // console.log('store.routeList', store.routeList)
   // 进度条
+  console.log('to', to)
+  console.log('to.name', to.name)
   Nprogress.start()
   let token = getCookie('token')
-  if (to.name !== 'Login' && to.name !== 'RegisterUser') {
-    if (token) {
+  if (to.name == undefined) {
+    next('/404')
+    Nprogress.done()
+  } else if (to.name !== 'Login' && to.name !== 'RegisterUser') {
+    if (to.name == '404') {
+      next()
+    } else if (token) {
       next()
       Nprogress.done()
     } else {
