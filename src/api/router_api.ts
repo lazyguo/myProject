@@ -28,3 +28,20 @@ export function addRouterApi(data:addRouterRule) {
         data
     })
 }
+
+// 更新路由信息
+export function updateRouterApi(data:addRouterRule) {
+    return request({
+        url: `${prefix}/updateRouter`,
+        method: 'post',
+        data
+    })
+}
+
+// 删除路由
+export function removeRouterApi(id:number) {
+    return request({
+        url:`${prefix}/removeRouter?id=${id}`,
+        method:'get',
+    })
+}
