@@ -131,6 +131,7 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import { getUserListApi, editUserApi, removeUserApi, removeImgApi } from '@/api/user_api'
 // 引入公用方法
 import { dict, dictTrans } from '@/utils/util.dict'
+import { clear } from '@/utils/util.common'
 // 引入pinia
 import { loginStore } from '@/storePinia/index'
 // 引入公共验证规则
@@ -202,19 +203,10 @@ const rules = reactive<FormRules>({
   ]
   // email: [{ validator: validateEmail, trigger: 'blur' }]
 })
-const clear = data => {
-  const keys = Object.keys(data)
-  let obj: { [name: string]: string } = {}
-  keys.forEach(item => {
-    obj[item] = ''
-  })
-  Object.assign(data, obj)
-}
 // 修改用户信息
 const editUserForm = row => {
   clear(userForm)
   userForm = Object.assign(userForm, row)
-  console.log('userForm', userForm.imgUrl)
   userDialog.value = true
 }
 let deleteUrl = ref<string>('')

@@ -11,6 +11,7 @@
     <div class="router_body">
       <el-table
         :data="tableData"
+        v-loading="loading"
         row-key="id"
         :header-cell-style="{
           color: '#fff',
@@ -31,7 +32,9 @@
             <el-button type="warning" size="small" @click="showDialog(scope.row, 'update')"
               >修改</el-button
             >
-            <el-button type="danger" size="small" @click="removeRouter(scope.row.id)">删除</el-button>
+            <el-button type="danger" size="small" @click="removeRouter(scope.row.id)"
+              >删除</el-button
+            >
           </template>
         </el-table-column>
       </el-table>
@@ -90,16 +93,24 @@ import { getRouterListApi, addRouterApi, updateRouterApi, removeRouterApi } from
 
 //饿了么方法
 import { ElMessage, ElMessageBox } from 'element-plus'
+// 引入公用方法
+import { clear } from '@/utils/util.common'
 
 // ------------------------------------------------
 // 总列表（存储路由列表信息）
 let tableData = ref([])
 let dialogVisible = ref(false) //弹框显隐
 let title = ref('新增') // 动态弹框白哦提
+let loading = ref('false')
 // 获取列表信息
-getRouterListApi().then(res => {
-  tableData.value = res.data
-})
+const getRouterList = () => {
+  loading.value = true
+  getRouterListApi().then(res => {
+    tableData.value = res.data
+    loading.value = false
+  })
+}
+getRouterList()
 let routerFormRef = ref<FormInstance>() // 定义表单ref
 let rules = reactive<FormRules>({}) // 定义表单规则
 // 弹框表单信息
@@ -115,33 +126,24 @@ let routerForm = reactive({
 })
 // 打开添加/编辑弹框
 const showDialog = (row, type) => {
-  routerForm = reactive({
-    id: '',
-    pid: '',
-    name: '',
-    path: '',
-    icon: '',
-    sort: '',
-    powerMark: '',
-    type: ''
-  })
+  clear(routerForm)
   if (type == 'add') {
     const { id } = row
     routerForm.pid = id
     title.value = '新增'
   } else if (type == 'update') {
+    routerForm = Object.assign(routerForm, row)
     title.value = '更新'
-    routerForm = row
   }
   dialogVisible.value = true
 }
 // 添加/编辑路由信息
 const confrimRouter = (formEl: FormInstance | undefined) => {
-  console.log('title.value', title.value)
   if (title.value == '新增') {
     addRouterApi(routerForm).then(res => {
       if (res.status == 0) {
         ElMessage.success('添加成功')
+        getRouterList()
       } else {
         ElMessage.error('添加失败')
       }
@@ -150,10 +152,10 @@ const confrimRouter = (formEl: FormInstance | undefined) => {
     updateRouterApi(routerForm).then(res => {
       if (res.status == 0) {
         ElMessage.success('更新成功')
+        getRouterList()
       }
     })
   }
-  getRouterListApi()
   formEl.resetFields()
   dialogVisible.value = false
 }
@@ -177,7 +179,7 @@ const removeRouter = id => {
         message: '取消删除'
       })
     })
-    getRouterListApi()
+  getRouterList()
 }
 </script>
 
