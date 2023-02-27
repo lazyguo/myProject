@@ -1,7 +1,7 @@
 <template>
   <div class="contain">
     <div class="tabList">
-      <div class="tab" @click="router.push('/userHome')">
+      <div class="tab" @click="router.push({name:'UserCenter'})">
         <div class="tabImg"></div>
         <div class="tabText">管理页面</div>
       </div>

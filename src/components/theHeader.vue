@@ -1,6 +1,6 @@
 <template>
   <div class="header_container">
-    <div class="header_title">你种的花，老娘都没收到！</div>
+    <div class="header_title">你种的花，人间都开遍了！</div>
     <div class="header_tool">
       <el-dropdown>
         <div class="avatar">

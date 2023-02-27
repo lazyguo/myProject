@@ -6,11 +6,11 @@
     text-color="#fff"
     active-text-color="#ccc1be"
   >
-    <el-menu-item index="1" @click="jump('userHome')">
+    <el-menu-item index="1" @click="router.push({name:'UserCenter'})">
       <span>用户管理</span>
     </el-menu-item>
-    <el-menu-item index="2" @click="jump('core')">
-      <span>未知</span>
+    <el-menu-item index="2" @click="router.push({name:'RouterCenter'})">
+      <span>路由管理</span>
     </el-menu-item>
     <el-menu-item index="3" @click="router.push({name: 'bigVisu'})">
       <span>可视化大屏</span>

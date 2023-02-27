@@ -27,6 +27,18 @@ const routes: Array<RouteRecordRaw> = [
     path: "/userHome",
     name: "UserHome",
     component: () => import('@/views/partUser/userHome.vue'),
+    children:[
+      {
+        path:'userCenter',
+        name:'UserCenter',
+        component: () => import('@/views/partUser/components/userCenter.vue')
+      },
+      {
+        path:'routerCenter',
+        name:'RouterCenter',
+        component: () => import('@/views/partUser/components/routerCenter.vue')
+      }
+    ]
   },
   {
     path: "/personalConter",
