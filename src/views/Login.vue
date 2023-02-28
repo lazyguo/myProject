@@ -60,7 +60,7 @@ const login = () => {
       if (power == 'admin' || power == 'super') {
         router.push('/core')
       } else {
-        router.push('/userHome')
+        router.push({name:'UserCenter'})
       }
       ElMessage.success('欢迎回家')
     } else {

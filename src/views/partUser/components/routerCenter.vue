@@ -11,6 +11,7 @@
     <div class="router_body">
       <el-table
         :data="tableData"
+        v-loading="loading"
         row-key="id"
         :header-cell-style="{
           color: '#fff',
@@ -25,14 +26,20 @@
         <el-table-column prop="powerMark" label="权限标识" />
         <el-table-column label="操作">
           <template v-slot="scope">
-            <el-button type="primary" size="small" @click="showDialog(scope.row)">添加</el-button>
-            <el-button type="warning" size="small">修改</el-button>
-            <el-button type="danger" size="small">删除</el-button>
+            <el-button type="primary" size="small" @click="showDialog(scope.row, 'add')"
+              >添加</el-button
+            >
+            <el-button type="warning" size="small" @click="showDialog(scope.row, 'update')"
+              >修改</el-button
+            >
+            <el-button type="danger" size="small" @click="removeRouter(scope.row.id)"
+              >删除</el-button
+            >
           </template>
         </el-table-column>
       </el-table>
     </div>
-    <el-dialog v-model="dialogVisible" title="添加路由" width="35%">
+    <el-dialog v-model="dialogVisible" :title="title + '路由'" width="35%">
       <el-form
         ref="routerFormRef"
         :model="routerForm"
@@ -80,23 +87,33 @@
 // 引入依赖方法
 import { ArrowRight } from '@element-plus/icons-vue'
 import { reactive, ref } from 'vue'
-import type { FormInstance, FormRules,resetFields } from 'element-plus'
+import type { FormInstance, FormRules, resetFields } from 'element-plus'
 //接口
-import { getRouterListApi, addRouterApi } from '@/api/router_api'
+import { getRouterListApi, addRouterApi, updateRouterApi, removeRouterApi } from '@/api/router_api'
 
 //饿了么方法
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElMessageBox } from 'element-plus'
+// 引入公用方法
+import { clear } from '@/utils/util.common'
 
 // ------------------------------------------------
+// 总列表（存储路由列表信息）
 let tableData = ref([])
-let dialogVisible = ref(false)
+let dialogVisible = ref(false) //弹框显隐
+let title = ref('新增') // 动态弹框白哦提
+let loading = ref('false')
 // 获取列表信息
-getRouterListApi().then(res => {
-  tableData.value = res.data
-})
+const getRouterList = () => {
+  loading.value = true
+  getRouterListApi().then(res => {
+    tableData.value = res.data
+    loading.value = false
+  })
+}
+getRouterList()
+let routerFormRef = ref<FormInstance>() // 定义表单ref
+let rules = reactive<FormRules>({}) // 定义表单规则
 // 弹框表单信息
-let routerFormRef = ref<FormInstance>()
-let rules = reactive<FormRules>({})
 let routerForm = reactive({
   id: '',
   pid: '',
@@ -107,21 +124,62 @@ let routerForm = reactive({
   powerMark: '',
   type: ''
 })
-const showDialog = row => {
-  const { id } = row
-  routerForm.pid = id
+// 打开添加/编辑弹框
+const showDialog = (row, type) => {
+  clear(routerForm)
+  if (type == 'add') {
+    const { id } = row
+    routerForm.pid = id
+    title.value = '新增'
+  } else if (type == 'update') {
+    routerForm = Object.assign(routerForm, row)
+    title.value = '更新'
+  }
   dialogVisible.value = true
 }
+// 添加/编辑路由信息
 const confrimRouter = (formEl: FormInstance | undefined) => {
-  addRouterApi(routerForm).then(res => {
-    if(res.status == 0) {
-      ElMessage.success('添加成功')
-    }else {
-      ElMessage.error('添加失败')
-    }
-  })
+  if (title.value == '新增') {
+    addRouterApi(routerForm).then(res => {
+      if (res.status == 0) {
+        ElMessage.success('添加成功')
+        getRouterList()
+      } else {
+        ElMessage.error('添加失败')
+      }
+    })
+  } else if (title.value == '更新') {
+    updateRouterApi(routerForm).then(res => {
+      if (res.status == 0) {
+        ElMessage.success('更新成功')
+        getRouterList()
+      }
+    })
+  }
   formEl.resetFields()
   dialogVisible.value = false
+}
+// 删除路由信息
+const removeRouter = id => {
+  ElMessageBox.confirm('是否要删除当前路由？', 'Warning', {
+    confirmButtonText: '确认',
+    cancelButtonText: '取消',
+    type: 'warning'
+  })
+    .then(() => {
+      removeRouterApi(id).then(res => {
+        if (res.status == 0) {
+          ElMessage.success('删除成功')
+        }
+      })
+    })
+    .catch(() => {
+      ElMessage({
+        type: 'info',
+        message: '取消删除'
+      })
+    })
+  getRouterList()
 }
 </script>
 
