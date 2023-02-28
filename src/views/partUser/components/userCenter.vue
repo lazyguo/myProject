@@ -14,7 +14,7 @@
         v-loading="loading"
         :header-cell-style="{
           color: '#fff',
-          background: '#9fdaa4',
+          background: '#c9c9c9' ,
           fontWeight: '700'
         }"
       >
@@ -312,15 +312,15 @@ const removeUser = id => {
 ::v-deep .el-table th,
 ::v-deep .el-table tr,
 ::v-deep .el-table td {
-  background-color: rgba(126, 182, 118, 0.5); // 背景透明
+  background-color: rgba(255, 255, 255, 0.3);  // 背景透明
   border: 0px;
-  color: #fff; // 修改字体颜色
+  color: rgb(106, 105, 105); // 修改字体颜色
   height: 5px;
   text-align: center;
 }
 // 修改高亮当前行颜色
 ::v-deep .el-table tbody tr:hover > td {
-  background: rgba(245, 206, 199, 0.5) !important;
+  background: rgba(169, 208, 222, 0.3) !important;
 }
 .avatar-uploader .avatar {
   width: 178px;

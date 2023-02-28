@@ -62,7 +62,7 @@ const logout = () => {
   justify-content: space-between;
   align-items: center;
   height: 100%;
-  background-color: #9fdaa4;
+  background-color: #363a57;
   .header_title {
     margin-left: 20px;
     font-size: 20;

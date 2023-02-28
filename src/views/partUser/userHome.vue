@@ -7,11 +7,11 @@
       </el-header>
       <el-container>
         <!-- 侧边栏 -->
-        <el-aside width="200px" style="background-color: #7eb676">
+        <el-aside width="200px" style="background-color: #52658f">
           <theAside></theAside>
         </el-aside>
         <!-- 主体内容 -->
-        <el-main style="background-color: #d1ecc3" class="userMain">
+        <el-main style="background-color: #fbf8f1" class="userMain">
           <router-view></router-view>
         </el-main>
       </el-container>
