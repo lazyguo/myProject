@@ -1,0 +1,70 @@
+// 头部主体
+$header-background-primary1:#e3dbff;
+$header-background-primary2:#3f6c9c;
+$header-background-primary3:#9fdaa4;
+
+@mixin theme_header($color) {
+    background-color: $color;
+    [data-theme="primary1"] & {
+        background-color: $header-background-primary1;
+    }
+    [data-theme="primary2"] & {
+        background-color: $header-background-primary2;
+    }
+    [data-theme="primary3"] & {
+        background-color: $header-background-primary3;
+    }
+}
+
+// 侧边栏
+$aside-background-primary1:#c5bdec;
+$aside-background-primary2:#6892c5;
+$aside-background-primary3:#73ad79;
+
+@mixin theme_aside($color) {
+    background-color: $color;
+    [data-theme="primary1"] & {
+        background-color: $aside-background-primary1;
+    }
+    [data-theme="primary2"] & {
+        background-color: $aside-background-primary2;
+    }
+    [data-theme="primary3"] & {
+        background-color: $aside-background-primary3;
+    }
+}
+
+// 侧边栏菜单
+$aside-menu-primary1:#c5bdec;
+$aside-menu-primary2:#6892c5;
+$aside-menu-primary3:#73ad79;
+@mixin theme_aside_menu($color) {
+    background-color: $color;
+    [data-theme="primary1"] & {
+        background-color: $aside-menu-primary1;
+    }
+    [data-theme="primary2"] & {
+        background-color: $aside-menu-primary2;
+    }
+    [data-theme="primary3"] & {
+        background-color: $aside-menu-primary3;
+    }
+}
+
+// 中心区域
+$main-background-primary1:#a7a0ce;
+$main-background-primary2:#4774a5;
+$main-background-primary3:#81bb87;
+
+@mixin theme_main($color) {
+    background-color: $color;
+    [data-theme="primary1"] & {
+        background-color: $main-background-primary1;
+    }
+    [data-theme="primary2"] & {
+        background-color: $main-background-primary2;
+    }
+    [data-theme="primary3"] & {
+        background-color: $main-background-primary3;
+    }
+}

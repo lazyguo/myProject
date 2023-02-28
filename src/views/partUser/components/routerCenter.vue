@@ -99,9 +99,9 @@ import { clear } from '@/utils/util.common'
 // ------------------------------------------------
 // 总列表（存储路由列表信息）
 let tableData = ref([])
-let dialogVisible = ref(false) //弹框显隐
-let title = ref('新增') // 动态弹框白哦提
-let loading = ref('false')
+let dialogVisible:boolean = ref(false) //弹框显隐
+let title:string = ref('新增') // 动态弹框白哦提
+let loading:boolean = ref(false)
 // 获取列表信息
 const getRouterList = () => {
   loading.value = true
@@ -184,6 +184,7 @@ const removeRouter = id => {
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/css/table.scss";
 .router_main {
   height: 100%;
   .router_header {
@@ -191,30 +192,6 @@ const removeRouter = id => {
   }
   .router_body {
     margin: 10px;
-  }
-}
-// 表格内背景颜色
-::v-deep .el-table th,
-::v-deep .el-table tr,
-::v-deep .el-table td {
-  background-color: rgba(119, 170, 160, 0.5); // 背景透明
-  border: 0px;
-  color: #fff; // 修改字体颜色
-  height: 5px;
-  text-align: center;
-}
-// 修改高亮当前行颜色
-::v-deep .el-table tbody tr:hover > td {
-  background: rgba(87, 137, 140, 0.5) !important;
-}
-::v-deep .el-input__wrapper {
-  display: flex;
-  // justify-content: space-between;
-  flex: 1;
-  flex-grow: 0;
-  width: 140px;
-  .el-input__inner {
-    width: inherit;
   }
 }
 </style>

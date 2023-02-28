@@ -1,7 +1,7 @@
 <template>
   <div class="main_center">
     <div class="main_header">
-      <el-breadcrumb :separator-icon="ArrowRight" style="color: #fff">
+      <el-breadcrumb :separator-icon="ArrowRight">
         <el-breadcrumb-item>哈喽</el-breadcrumb-item>
         <el-breadcrumb-item>用户管理</el-breadcrumb-item>
       </el-breadcrumb>
@@ -13,8 +13,6 @@
         class="infoTable"
         v-loading="loading"
         :header-cell-style="{
-          color: '#fff',
-          background: '#9fdaa4',
           fontWeight: '700'
         }"
       >
@@ -297,6 +295,8 @@ const removeUser = id => {
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/css/theme.scss";
+@import "@/assets/css/table.scss";
 .main_center {
     height: 100%;
     position: relative;
@@ -308,20 +308,30 @@ const removeUser = id => {
 .main_header {
   height: 30px;
 }
-// 表格内背景颜色
-::v-deep .el-table th,
-::v-deep .el-table tr,
-::v-deep .el-table td {
-  background-color: rgba(126, 182, 118, 0.5); // 背景透明
-  border: 0px;
-  color: #fff; // 修改字体颜色
-  height: 5px;
-  text-align: center;
-}
-// 修改高亮当前行颜色
-::v-deep .el-table tbody tr:hover > td {
-  background: rgba(245, 206, 199, 0.5) !important;
-}
+
+// // 修改表头样式-加边框
+// ::v-deep .el-table__header-wrapper {
+//   background-color: transparent !important;
+//   color: #fff;
+// }
+// // 表格内背景颜色
+// ::v-deep .el-table {
+//   background-color: transparent !important;
+// }
+// ::v-deep .el-table th,
+// ::v-deep .el-table tr,
+// ::v-deep .el-table td {
+//   // @include theme_table($table-background-primary1);
+//   background-color: transparent !important;
+//   border: 0px;
+//   color: #fff; // 修改字体颜色
+//   height: 5px;
+//   text-align: center;
+// }
+// // 修改高亮当前行颜色
+// ::v-deep .el-table tbody tr:hover > td {
+//   background: rgba($color: #fff, $alpha: .5) !important;
+// }
 .avatar-uploader .avatar {
   width: 178px;
   height: 178px;
