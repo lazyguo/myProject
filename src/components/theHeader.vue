@@ -18,7 +18,7 @@
   </div>
   <el-drawer v-model="drawer" title="选择你要的主题" direction="ltr" size="20%" style="background:rgba(0,0,0,.5);color:#fff">
     <div class="themeBox" v-for="(item,index) in colorArr" :key="index + 'type2'">
-      <div class="colorBox" :style="`background:${item.color}`" @click="changeTheme(item.theme,index)">三色堇</div>
+      <div class="colorBox" :style="`background:${item.color}`" @click="changeTheme(item.theme,index)">{{item.name}}</div>
     </div>
   </el-drawer>
 </template>
