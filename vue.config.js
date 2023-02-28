@@ -8,6 +8,10 @@ module.exports = defineConfig({
     .set('@', resolve('./src'))
     .set('@api', resolve('src/api'))
   },
+  // publicPath:'./',
+  // filenameHashing:true,
+  // runtimeCompiler:false,
+  // productionSourceMap:true,
   devServer: {
     proxy: {
         '/api': {
