@@ -29,6 +29,7 @@ import { reactive, ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import type { FormInstance, FormRules } from 'element-plus'
 import { ElMessage } from 'element-plus'
+import { getRouterListApi } from '@/api/router_api'
 import { loginStore } from '@/storePinia/index'
 export default {
   name: 'AssignModal'
@@ -45,6 +46,10 @@ let ruleFormRef = ref<FormInstance>()
 let form = reactive<formItem>({
   username: 'sole',
   password: 'sole123'
+})
+// 获取列表信息
+getRouterListApi().then(res => {
+  console.log(res.data,'resss');
 })
 const login = () => {
   console.log(123);
