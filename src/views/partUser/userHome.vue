@@ -8,7 +8,7 @@
       <el-container>
         <!-- 侧边栏 -->
         <el-aside width="200px" class="user_aside">
-          <theAside @menuInfo="getMenuInfo"></theAside>
+          <theAside @menuInfo="getMenuInfo" :editableTabsValue="editableTabsValue"></theAside>
         </el-aside>
         <!-- 主体内容 -->
         <el-main class="user_main">
@@ -61,6 +61,8 @@ const getMenuInfo = value => {
   if (!isState) {
     editableTabs.value.push(value)
     editableTabsValue.value = value.id
+  }else {
+     editableTabsValue.value = value.id
   }
 }
 const changeTab = e => {

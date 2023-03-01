@@ -16,8 +16,17 @@
 
 <script lang="ts" setup>
 import { useRouter } from 'vue-router'
-import { ref, reactive, defineEmits } from 'vue'
+import { ref, reactive, defineEmits, defineProps,watch } from 'vue'
 import { UserFilled, Promotion, Platform } from '@element-plus/icons-vue'
+const props = defineProps({
+  editableTabsValue: {
+    type: String,
+    default: '1m'
+  }
+})
+watch(() => props.editableTabsValue,(newVal) => {
+  activeIndex.value = newVal
+})
 const router = useRouter()
 const emit = defineEmits(['menuInfo'])
 let activeIndex = ref('1m')

@@ -98,8 +98,6 @@ router.beforeEach((to, from, next) => {
   // }
   // console.log('store.routeList', store.routeList)
   // 进度条
-  console.log('to', to)
-  console.log('to.name', to.name)
   Nprogress.start()
   let token = getCookie('token')
   if (to.name == undefined) {
