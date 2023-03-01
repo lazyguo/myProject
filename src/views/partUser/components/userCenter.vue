@@ -302,36 +302,13 @@ const removeUser = id => {
     position: relative;
     .pageNation {
         position: absolute;
-        bottom: 0;
+        bottom: -280px;
     }
 }
 .main_header {
-  height: 30px;
+  margin: 10px 0;
+  height: 10px;
 }
-
-// // 修改表头样式-加边框
-// ::v-deep .el-table__header-wrapper {
-//   background-color: transparent !important;
-//   color: #fff;
-// }
-// // 表格内背景颜色
-// ::v-deep .el-table {
-//   background-color: transparent !important;
-// }
-// ::v-deep .el-table th,
-// ::v-deep .el-table tr,
-// ::v-deep .el-table td {
-//   // @include theme_table($table-background-primary1);
-//   background-color: transparent !important;
-//   border: 0px;
-//   color: #fff; // 修改字体颜色
-//   height: 5px;
-//   text-align: center;
-// }
-// // 修改高亮当前行颜色
-// ::v-deep .el-table tbody tr:hover > td {
-//   background: rgba($color: #fff, $alpha: .5) !important;
-// }
 .avatar-uploader .avatar {
   width: 178px;
   height: 178px;

@@ -17,5 +17,5 @@ declare module '*.jpg'
 declare module '*.jpeg'
 declare module '*.webp'
 declare module "element-plus";
-declare module "vue-router";
+// declare module "vue-router";
 declare module '@jiaminghi/data-view'

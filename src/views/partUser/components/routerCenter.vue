@@ -188,7 +188,8 @@ const removeRouter = id => {
 .router_main {
   height: 100%;
   .router_header {
-    height: 30px;
+    height: 10px;
+    margin: 10px 0;
   }
   .router_body {
     margin: 10px;
