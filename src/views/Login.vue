@@ -1,25 +1,13 @@
 <template>
   <div class="home-contain">
     <div class="login">
-      <div class="login-title">开始</div>
-      <el-form
-        ref="ruleFormRef"
-        class="demo-ruleForm login-info"
-        status-icon
-        :model="form"
-        label-width="80px"
-      >
-        <el-form-item label="账号:">
-          <el-input v-model="form.username" />
-        </el-form-item>
-        <el-form-item label="密码:">
-          <el-input v-model="form.password" type="password" />
-        </el-form-item>
-      </el-form>
+      <div class="logo"><img :src="loginLogo"></div>
+      <div class="login-title">登录GJ Home</div>
+        <input type="text" class="login_input" placeholder="请输入用户名" v-model="form.username">
+        <input type="password" class="login_input" placeholder="请输入密码" v-model="form.password">
       <el-button @click="login" class="login-start">登录</el-button>
       <div class="login-other">
-        <span class="textSelect">忘记密码</span>
-        <span class="textSelect" @click="router.push('/registerUser')">注册账户</span>
+        <span class="textSelect" @click="router.push('/registerUser')"><span style="color:#000;font-size:12px">还没账号?</span>立即注册</span>
       </div>
     </div>
   </div>
@@ -38,11 +26,11 @@ export default {
 <script lang="ts" setup>
 const store = loginStore()
 const router = useRouter()
+const loginLogo = require('@/assets/imgs/tx.jpg')
 interface formItem {
   username: string
   password: string
 }
-let ruleFormRef = ref<FormInstance>()
 let form = reactive<formItem>({
   username: 'sole',
   password: 'sole123'
@@ -78,57 +66,61 @@ const login = () => {
   align-items: center;
   width: 100%;
   height: 100%;
-  background: url('@/assets/imgs/cat.jpg') no-repeat;
+  background: url('@/assets/imgs/bg2.jpg') no-repeat;
 }
 .login {
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 480px;
-  height: 280px;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  border: 2px solid #fff;
+  height: 480px;
+  .logo {
+    margin-bottom: 20px;
+    img {
+      width: 100px;
+      height: 100px;
+      border: 8px solid #fffef6;
+      border-radius: 50%;
+    }
+  }
   .login-title {
-    font-size: 30px;
+    font-size: 22px;
     color: #fff;
-    text-align: center;
-    margin-top: 15px;
+    margin: 15px 0;
     user-select: none;
   }
-  .login-info {
-    margin: 30px auto;
+  .login_input {
+    width: 380px;
+    height: 45px;
+    background-color: rgba(0,0,0,.3);
+    color: #fff;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    padding-left: 20px;
+    margin-top: 20px
   }
   .login-start {
-    position: absolute;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
     width: 200px;
-    justify-content: center;
-    background-color: #bdb0c2;
+    height: 40px;
+    border-radius: 20px;
+    background-color: rgba(0,0,0,.3);
     border: 1px solid #fff;
     color: #fff;
+    margin-top: 30px;
   }
   .login-other {
-    width: 200px;
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 15px;
-    margin: 0 auto;
-    color: #deccbe;
+    margin-top: 35px;
+    width: 230px;
+    height: 30px;
+    color: #3d6688;
+    font-size: 16px;
+    line-height: 30px;
+    text-align: center;
     span {
       margin: 0 15px;
       cursor: pointer;
     }
   }
-}
-::v-deep .el-input .el-input__wrapper {
-  flex-grow: 0.9;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-color: #fff;
-  box-shadow: 0 0 0 1px #bdb0c2 inset;
-}
-::v-deep .el-form-item__label {
-  color: #fff;
 }
 </style>
