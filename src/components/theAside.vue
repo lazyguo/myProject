@@ -1,6 +1,6 @@
 <template>
   <el-menu
-    default-active="1m"
+    :default-active="activeIndex"
     class="el-menu-vertical-demo asideMenu"
     text-color="#fff"
     active-text-color="#6f6994"
@@ -20,6 +20,7 @@ import { ref, reactive, defineEmits } from 'vue'
 import { UserFilled, Promotion, Platform } from '@element-plus/icons-vue'
 const router = useRouter()
 const emit = defineEmits(['menuInfo'])
+let activeIndex = ref('1m')
 let list = [
   {
     id: '1m',
@@ -42,6 +43,7 @@ let list = [
 ]
 const menuChange = item => {
   router.push({ name: item.routeName })
+  activeIndex.value = item.id
   emit('menuInfo', item)
 }
 </script>
