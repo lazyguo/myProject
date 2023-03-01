@@ -100,7 +100,9 @@ router.beforeEach((to, from, next) => {
   // 进度条
   Nprogress.start()
   let token = getCookie('token')
-  if (to.name == undefined) {
+  if(token && to.name == 'Login') {
+    next('/core')
+  }else if (to.name == undefined) {
     next('/404')
     Nprogress.done()
   } else if (to.name !== 'Login' && to.name !== 'RegisterUser') {

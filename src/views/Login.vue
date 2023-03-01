@@ -46,9 +46,9 @@ const login = () => {
     if (res.status == 'success') {
       let power = res.power
       if (power == 'admin' || power == 'super') {
-        router.push('/core')
+        router.replace('/core')
       } else {
-        router.push({name:'UserCenter'})
+        router.replace({name:'UserCenter'})
       }
       ElMessage.success('欢迎回家')
     } else {
