@@ -49,6 +49,11 @@ const colorArr = [
     name:'天缥',
     color:'#81bb87',
     theme:'primary3'
+  },
+  {
+    name:'沉稳',
+    color:'#52658d',
+    theme:'primary4'
   }
 ]
 // 监听pinia存储数据修改
@@ -77,7 +82,6 @@ const changeTheme = (e,index) => {
       colorBox[i].style.border = 'none'
     }
   }
-  console.log('e', e)
   window.document.documentElement.setAttribute('data-theme', e)
 }
 const personal = () => {

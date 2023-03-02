@@ -5,7 +5,7 @@
         <div class="tabImg"></div>
         <div class="tabText">管理页面</div>
       </div>
-      <div class="tab">
+      <div class="tab" @click="router.push({name:'consumerCenter'})">
         <div class="tabImg2"></div>
         <div class="tabText">普通页面</div>
       </div>

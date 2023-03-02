@@ -4,11 +4,14 @@
       <div class="trunBack" @click="turnBack">返 回</div>
     </div>
     <div class="personal-body">
+      <!-- 头像 -->
       <el-card class="box-card">
         <el-avatar :size="165" :src="fileImg == '' ? demoImg : fileImg" />
         <div class="card-content">{{ store.userInfo.nickname }}</div>
       </el-card>
-      <el-card class="box-BottomCard">
+
+      <!-- 侧边栏 -->
+      <!-- <el-card class="box-BottomCard">
         <div class="card-header">
           <span>个人资料</span>
         </div>
@@ -21,7 +24,37 @@
           <span>XXXX</span>
         </div>
         <div v-for="o in sidebarXxItem" :key="o" class="text-item">{{ o }}</div>
+      </el-card> -->
+      <el-card class="box-BottomCard">
+        <el-menu
+          default-active="1"
+          class="el-menu-vertical-demo"
+          @open="handleOpen"
+          @close="handleClose"
+        >
+          <el-sub-menu index="1" >
+            <template #title>
+              <span>个人资料</span>
+            </template>
+            <el-menu-item index="1-1">基本资料</el-menu-item>
+            <el-menu-item index="1-2">修改头像</el-menu-item>
+            <el-menu-item index="1-3">修改密码</el-menu-item>
+            <el-menu-item index="1-4">身份认证</el-menu-item>
+          </el-sub-menu>
+          <!-- <el-menu-item index="2">
+            <span>消息中心</span>
+          </el-menu-item>
+          <el-menu-item index="3" disabled>
+            <el-icon><document /></el-icon>
+            <span>Navigator Three</span>
+          </el-menu-item>
+          <el-menu-item index="4">
+            <el-icon><setting /></el-icon>
+            <span>Navigator Four</span>
+          </el-menu-item> -->
+        </el-menu>
       </el-card>
+      <!-- 右侧主体部分 -->
       <el-card class="box-RightTopCard">
         <span>个人资料</span>
       </el-card>
@@ -68,6 +101,7 @@ import { useRouter } from 'vue-router'
 import type { TabsPaneContext } from 'element-plus'
 import { loginStore } from '@/storePinia/index'
 import { reactive } from 'vue'
+import { dict } from '@/utils/util.dict'
 
 const activeName = ref('first')
 // 表单数据
@@ -82,13 +116,23 @@ let userForm = reactive({
 const handleClick = (tab: TabsPaneContext, event: Event) => {
   console.log(tab, event)
 }
+const handleOpen = (key: string, keyPath: string[]) => {
+  console.log(key, keyPath)
+}
+const handleClose = (key: string, keyPath: string[]) => {
+  console.log(key, keyPath)
+}
+// 处理字典数据
+const levelDict = dict('等级').map(item => {
+  return {
+    label: item.optName,
+    value: item.optCode
+  }
+})
 const fileImg = ref('')
 const router = useRouter()
 const store = loginStore()
 const demoImg = require('@/assets/imgs/ava.png')
-const sidebarItem: Array<string> = ['基本资料', '修改头像', '修改密码', '身份认证']
-const sidebarXItem: Array<string> = ['系统通知', '私信', '资金管理']
-const sidebarXxItem: Array<string> = ['xxx', 'xx', 'xxxx', 'xxx']
 userForm = store.userInfo
 // 判断该账户是否有头像，如有则使用，无则用默认
 fileImg.value = store.userInfo.imgUrl
@@ -140,7 +184,9 @@ const turnBack = () => {
       border-bottom: 1px solid #ccc;
     }
     .text-item {
-      margin: 10px 106px;
+      text-align: center;
+      width: 90%;
+      margin: 10px 0;
       font-size: 16px;
       cursor: pointer;
     }

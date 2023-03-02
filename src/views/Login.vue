@@ -40,8 +40,6 @@ getRouterListApi().then(res => {
   console.log(res.data,'resss');
 })
 const login = () => {
-  console.log(123);
-  
   store.login(form).then(res => {
     if (res.status == 'success') {
       let power = res.power
