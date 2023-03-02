@@ -8,13 +8,23 @@
           <div class="card">
             <el-row :gutter="24">
               <el-col :span="8">
-                <el-card shadow="always"> Always </el-card>
+                <el-card shadow="hover"> Always </el-card>
               </el-col>
               <el-col :span="8">
                 <el-card shadow="hover"> Hover </el-card>
               </el-col>
               <el-col :span="8">
-                <el-card shadow="never"> Never </el-card>
+                <el-card shadow="hover"> Never </el-card>
+              </el-col>
+            </el-row>
+          </div>
+          <div class="card-body">
+            <el-row :gutter="24">
+              <el-col :span="8">
+                <el-card shadow="hover"> Always </el-card>
+              </el-col>
+              <el-col :span="16">
+                <el-card shadow="hover"> Always </el-card>
               </el-col>
             </el-row>
           </div>
@@ -31,12 +41,18 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 .common-layout {
+  overflow: hidden;
   width: 100%;
   height: 100%;
   background: linear-gradient(to right bottom, #392b42, #cfaa74);
-  .card {
+  .card ,.card-body{
     width: 90%;
     margin: 20px 0 0 75px;
+  }
+  .card-body {
+    ::v-deep .el-card{
+      height: 550px;
+    }
   }
 }
 ::v-deep .el-header,
