@@ -120,13 +120,14 @@ const handleTabsEdit = (targetName: string, action: 'remove' | 'add') => {
   margin-bottom: 5px;
 }
 ::v-deep .el-tabs__item {
-  color: #fff;
+  color: #000;
 }
 ::v-deep .el-tabs--card > .el-tabs__header .el-tabs__item {
   border: none;
   border: 1px solid rgba($color: #fff, $alpha: 0.8);
+  background-color: rgba($color: #fff, $alpha: 1.0);
   border-bottom: none;
-  border-radius: 5px 5px 0 0;
+  border-radius: 10px 10px 0 0;
 }
 ::v-deep .el-tabs--card > .el-tabs__header .el-tabs__nav {
   border: none;

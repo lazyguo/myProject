@@ -170,6 +170,7 @@ const removeRouter = id => {
       removeRouterApi(id).then(res => {
         if (res.status == 0) {
           ElMessage.success('删除成功')
+          getRouterList()
         }
       })
     })
@@ -178,8 +179,8 @@ const removeRouter = id => {
         type: 'info',
         message: '取消删除'
       })
+      getRouterList()
     })
-  getRouterList()
 }
 </script>
 

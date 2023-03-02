@@ -94,7 +94,7 @@ userForm = store.userInfo
 fileImg.value = store.userInfo.imgUrl
 
 const turnBack = () => {
-  router.push('/userHome')
+  router.go(-1)
 }
 </script>
 <style lang="scss" scoped>

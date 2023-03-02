@@ -79,6 +79,7 @@ export const loginStore = defineStore('start', {
                         removeCookie('token')
                         removeCookie('Authorization')
                         localStorage.removeItem('userInfo')
+                        localStorage.removeItem('routeList')
                         resolve("success")
                     }
                 })
@@ -91,7 +92,7 @@ export const loginStore = defineStore('start', {
                     child.forEach((c: any) => {
                         arr.push({
                             path: c.path.split('/').at(-1),
-                            component: routerCom(c.path),
+                            component: c.path,
                             name: c.powerMark,
                             children: dealData(c)
                         })
@@ -104,7 +105,7 @@ export const loginStore = defineStore('start', {
                     let list = res.data.map((item: any) => {
                         return {
                             path: '/' + item.path.split('/').at(-1),
-                            component: routerCom(item.path),
+                            component: item.path,
                             name: item.powerMark,
                             children: dealData(item.children)
                         }
