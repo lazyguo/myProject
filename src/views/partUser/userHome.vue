@@ -46,7 +46,9 @@ import { ref, provide } from 'vue'
 import { useRouter } from 'vue-router'
 const router = useRouter()
 
+// 定义当前窗口
 let editableTabsValue = ref('1m')
+// 定义初始窗口列表
 const editableTabs = ref([
   {
     id: '1m',
@@ -54,6 +56,7 @@ const editableTabs = ref([
     routeName: 'UserCenter'
   }
 ])
+// 获取窗口列表
 const getMenuInfo = value => {
   let isState = editableTabs.value.some(item => {
     return item.name == value.name
@@ -65,6 +68,7 @@ const getMenuInfo = value => {
      editableTabsValue.value = value.id
   }
 }
+// 切换窗口
 const changeTab = e => {
   editableTabs.value.forEach(item => {
     if (item.id == e) {
@@ -72,6 +76,7 @@ const changeTab = e => {
     }
   })
 }
+// 删除窗口
 const handleTabsEdit = (targetName: string, action: 'remove' | 'add') => {
   if (action === 'remove') {
     const tabs = editableTabs.value
