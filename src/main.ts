@@ -13,10 +13,14 @@ import {createPinia} from 'pinia'
 import piniaPluginPersist from 'pinia-plugin-persist'  // 持久化pinia数据
 // 可视化大屏组件
 import dataV from '@jiaminghi/data-view'
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+ 
 
 const pinia = createPinia()
 const app = createApp(App)
-
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+    app.component(key, component)
+}
 app.use(pinia)
 app.use(dataV)
 pinia.use(piniaPluginPersist)
