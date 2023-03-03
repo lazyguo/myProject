@@ -46,9 +46,16 @@ const routes: Array<RouteRecordRaw> = [
     ]
   },
   {
-    path: '/consumerCenter',
-    name: 'consumerCenter',
-    component: () => import('@/views/partUser/consumerCenter.vue')
+    path: '/consumer',
+    name: 'consumer',
+    component: () => import('@/views/consumer/index.vue'),
+    children: [
+      {
+        path: 'consumerCenter',
+        name: 'consumerCenter',
+        component: () => import('@/views/consumer/components/consumerCenter.vue')
+      }
+    ]
   },
   {
     path: "/personalConter",
