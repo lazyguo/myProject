@@ -4,9 +4,9 @@
       <el-icon size="25px"><Back /></el-icon>
     </el-button>
   </div>
-  <span style="margin-left: 65px">
+  <div class="box" style="margin-left: 65px;width: 128px;position: relative;">
     <h3>奇奇怪怪网站</h3>
-  </span>
+  </div>
   <div class="avatar">
     <el-badge :value="12">
       <el-icon size="35px" class="item"><ChatDotSquare /></el-icon>
@@ -49,13 +49,13 @@ h3 {
 }
 h3::before {
   content: '';
-  height: 4px;
-  background: red;
+  height: 2px;
+  background: #cba773;
   display: inline-block;
   position: absolute;
-  bottom: -6px;
+  top: 46px;
   width: 0;
-  transition: width 0.36s;
+  transition: width 0.56s;
 }
 h3:hover::before {
   width: 100%;
